@@ -1,4 +1,4 @@
-﻿-Huy
+﻿-vu
 CREATE DATABASE WCDEdunextDB;
 GO
 USE WCDEdunextDB;
