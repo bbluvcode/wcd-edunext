@@ -1,4 +1,4 @@
-﻿--NHAT
+﻿-Huy
 CREATE DATABASE WCDEdunextDB;
 GO
 USE WCDEdunextDB;
