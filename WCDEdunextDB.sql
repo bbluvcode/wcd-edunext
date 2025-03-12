@@ -1,4 +1,5 @@
-﻿CREATE DATABASE WCDEdunextDB;
+﻿--man
+CREATE DATABASE WCDEdunextDB;
 GO
 USE WCDEdunextDB;
 GO
