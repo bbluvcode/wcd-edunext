@@ -1,4 +1,4 @@
-﻿--man2
+﻿-vu
 CREATE DATABASE WCDEdunextDB;
 GO
 USE WCDEdunextDB;
