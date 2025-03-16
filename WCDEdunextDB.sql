@@ -89,3 +89,9 @@ INSERT INTO Reviews (bookId, userId, rating, reviewContent, reviewDate) VALUES
 (3, 'U002', 5, 'A timeless classic!', '2025-03-12'),
 (4, 'U004', 4, 'Very useful for software architects.', '2025-03-12'),
 (5, 'U005', 5, 'One of the best Java books ever written.', '2025-03-13');
+----------------------------
+USE WCDEdunextDB;
+ALTER TABLE Users 
+ADD password NVARCHAR(255);
+UPDATE Users 
+SET password = '123';

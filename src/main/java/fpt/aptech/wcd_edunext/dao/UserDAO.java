@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fpt.aptech.wcd_edunext.dao;
 
-/**
- *
- * @author Admin
- */
 import fpt.aptech.wcd_edunext.dto.UserDTO;
 import fpt.aptech.wcd_edunext.utils.ConnectDB;
 import java.sql.*;
@@ -23,74 +15,126 @@ public class UserDAO {
         conn = ConnectDB.setConnect();
     }
 
+    // 📌 Thêm người dùng mới
+    public int addUser(UserDTO user) {
+        System.out.println("DAO Hello!");
+        int row = 0;
+        String sql = "INSERT INTO Users (userId, username, email, photo, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, user.getEmail());
+            pstmt.setString(2, user.getUsername());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getPhoto());
+            pstmt.setString(5, user.getPassword());
+            pstmt.setInt(6, (user.getRoleId() != null) ? user.getRoleId() : 2);
+            System.out.println("DAO SQL: " + sql);
+            row = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Lỗi khi thêm user: " + ex.getMessage());
+        } finally {
+            closeResources();
+        }
+        return row;
+    }
+
     // 📌 Lấy danh sách tất cả người dùng
-    public List<UserDTO> getAllUsers() throws SQLException {
+    public List<UserDTO> getAllUsers() {
         List<UserDTO> users = new ArrayList<>();
         String sql = "SELECT * FROM Users";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
             while (rs.next()) {
-                UserDTO user = new UserDTO(
+                users.add(new UserDTO(
                         rs.getString("userId"),
                         rs.getString("username"),
                         rs.getString("email"),
-                        rs.getString("photo")
-                );
-                users.add(user);
+                        rs.getString("photo"),
+                        rs.getString("password"),
+                        rs.getInt("roleId")
+                ));
             }
+        } catch (SQLException ex) {
+            System.out.println("Lỗi khi lấy danh sách user: " + ex.getMessage());
+        } finally {
+            closeResources();
         }
         return users;
     }
 
     // 📌 Lấy thông tin user theo ID
-    public UserDTO getUserById(String userId) throws SQLException {
+    public UserDTO getUserById(String userId) {
         String sql = "SELECT * FROM Users WHERE userId = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, userId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new UserDTO(
-                            rs.getString("userId"),
-                            rs.getString("username"),
-                            rs.getString("email"),
-                            rs.getString("photo")
-                    );
-                }
-            }
-        }
-        return null;
-    }
+        UserDTO user = null;
 
-    // 📌 Thêm người dùng mới
-    public void addUser(UserDTO user) throws SQLException {
-        String sql = "INSERT INTO Users (userId, username, email, photo, roleId) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, user.getUserId());
-            stmt.setString(2, user.getUsername());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getPhoto());
-            stmt.executeUpdate();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                user = new UserDTO(
+                        rs.getString("userId"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("photo"),
+                        rs.getString("password"),
+                        rs.getInt("roleId")
+                );
+            }
+        } catch (SQLException ex) {
+            System.out.println("Lỗi khi lấy user theo ID: " + ex.getMessage());
+        } finally {
+            closeResources();
         }
+        return user;
     }
 
     // 📌 Cập nhật thông tin người dùng
-    public void updateUser(UserDTO user) throws SQLException {
-        String sql = "UPDATE Users SET username = ?, email = ?, photo = ?, roleId = ? WHERE userId = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPhoto());
-            stmt.setString(5, user.getUserId());
-            stmt.executeUpdate();
+    public void updateUser(UserDTO user) {
+        String sql = "UPDATE Users SET username = ?, email = ?, photo = ?, password = ?, roleId = ? WHERE userId = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getPhoto());
+            pstmt.setString(4, user.getPassword());
+            pstmt.setInt(5, (user.getRoleId() != null) ? user.getRoleId() : 2);
+            pstmt.setString(6, user.getUserId());
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Lỗi khi cập nhật user: " + ex.getMessage());
+        } finally {
+            closeResources();
         }
     }
 
     // 📌 Xóa người dùng
-    public void deleteUser(String userId) throws SQLException {
+    public void deleteUser(String userId) {
         String sql = "DELETE FROM Users WHERE userId = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, userId);
-            stmt.executeUpdate();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Lỗi khi xóa user: " + ex.getMessage());
+        } finally {
+            closeResources();
+        }
+    }
+
+    // 📌 Đóng tài nguyên để tránh rò rỉ
+    private void closeResources() {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Lỗi khi đóng tài nguyên: " + ex.getMessage());
         }
     }
 }
