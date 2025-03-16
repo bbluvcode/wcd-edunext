@@ -41,6 +41,7 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            System.out.println("project HELLO");
             String action = request.getParameter("action");
             if (null == action) {
 //                List<UserDTO> bList = dao.namemethod();
