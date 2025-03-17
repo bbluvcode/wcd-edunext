@@ -11,6 +11,22 @@ public class UserDTO {
     private String Password;
     private Integer RoleId;
 
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
+
+    public Integer getRoleId() {
+        return RoleId;
+    }
+
+    public void setRoleId(Integer RoleId) {
+        this.RoleId = RoleId;
+    }
+
     public UserDTO() {
     }
 
