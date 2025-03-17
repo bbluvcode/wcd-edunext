@@ -4,6 +4,8 @@ import fpt.aptech.wcd_edunext.dto.UserDTO;
 import fpt.aptech.wcd_edunext.utils.ConnectDB;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDAO {
 
@@ -38,6 +40,52 @@ public class UserDAO {
         return row;
     }
 
+    public List<UserDTO> findAll() {
+        List<UserDTO> list = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * FROM Users";
+            pstmt = conn.prepareCall(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                UserDTO b = new UserDTO();
+                b.setUserId(rs.getString(1));
+                b.setUsername(rs.getString(2));
+                b.setEmail(rs.getString(3));
+                b.setPhoto(rs.getString(4));
+                b.setRoleId(rs.getInt(5));
+                b.setPassword(rs.getString(6));
+
+                list.add(b);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public int saveUser(UserDTO newUser) {
+        int row = 0;
+        try {
+            String sql = "INSERT INTO Users VALUES (?,?,?,?,?,?)";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newUser.getUserId());
+            pstmt.setString(2, newUser.getUsername());
+            pstmt.setString(3, newUser.getEmail());
+            pstmt.setString(4, newUser.getPhoto());
+            pstmt.setInt(5,(newUser.getRoleId() != null) ? newUser.getRoleId() : 2);
+            pstmt.setString(6, newUser.getPassword());
+
+            row = pstmt.executeUpdate();
+            return row;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return row;
+    }
+
     // 📌 Lấy danh sách tất cả người dùng
     public List<UserDTO> getAllUsers() {
         List<UserDTO> users = new ArrayList<>();
@@ -53,8 +101,7 @@ public class UserDAO {
                         rs.getString("email"),
                         rs.getString("photo"),
                         rs.getString("password"),
-                        rs.getInt("roleId")
-                ));
+                        rs.getInt("roleId")));
             }
         } catch (SQLException ex) {
             System.out.println("Lỗi khi lấy danh sách user: " + ex.getMessage());
@@ -80,8 +127,7 @@ public class UserDAO {
                         rs.getString("email"),
                         rs.getString("photo"),
                         rs.getString("password"),
-                        rs.getInt("roleId")
-                );
+                        rs.getInt("roleId"));
             }
         } catch (SQLException ex) {
             System.out.println("Lỗi khi lấy user theo ID: " + ex.getMessage());

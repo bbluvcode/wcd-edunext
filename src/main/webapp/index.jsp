@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,33 +15,32 @@
     </head>
     <body>
         <div class="container">
-            <h1>Hello World!</h1>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                </tr>
-                <tr>
-                    <td>Mary</td>
-                    <td>Moe</td>
-                    <td>mary@example.com</td>
-                </tr>
-                <tr>
-                    <td>July</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                </tr>
-            </tbody>
-        </table>
+            <a href="register.jsp" class="btn btn-primary">Register new user</a>
+            <h1>User List</h1>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Photo</th>
+                        <th>Password</th>
+                        <th>Role ID</th>
+                    </tr>
+                </thead>
+                <tbody>                    
+                   <c:forEach var="it" items="${list}">
+                    <tr>
+                        <td>${it.userId}</td>
+                        <td>${it.username}</td>
+                        <td>${it.email}</td>
+                        <td><img src="images/${it.photo}" alt="${it.username}" width="50" height="50"/></td>
+                        <td>${it.password}</td>
+                        <td>${it.roleId}</td>                      
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

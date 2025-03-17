@@ -2,57 +2,77 @@ package fpt.aptech.wcd_edunext.dto;
 
 import lombok.*;
 
+@Data // Lombok annotation to generate getters, setters, toString, equals, and hashCode
+@NoArgsConstructor // Lombok annotation to generate a no-args constructor
+@AllArgsConstructor // Lombok annotation to generate an all-args constructor
 public class UserDTO {
 
-    private String UserId;
-    private String Username;
-    private String Email;
-    private String Photo;
-    private String Password;
-    private Integer RoleId;
+    private String userId;
+    private String username;
+    private String email;
+    private String photo;    
+    private String password;
+    private Integer roleId;
 
-    public UserDTO() {
-    }
+    // If you prefer not to use Lombok, you can manually define the constructors, getters, and setters as shown below:
 
-    public UserDTO(String UserId, String Username, String Email, String Photo, String Password, Integer RoleId) {
-        this.UserId = UserId;
-        this.Username = Username;
-        this.Email = Email;
-        this.Photo = Photo;
-        this.Password = Password;
-        this.RoleId = (RoleId != null) ? RoleId : 2;
-    }
+    // public UserDTO() {
+    // }
 
-    public String getUserId() {
-        return UserId;
-    }
+    // public UserDTO(String userId, String username, String email, String photo, String password, Integer roleId) {
+    //     this.userId = userId;
+    //     this.username = username;
+    //     this.email = email;
+    //     this.photo = photo;
+    //     this.password = password;
+    //     this.roleId = (roleId != null) ? roleId : 2;
+    // }
 
-    public void setUserId(String UserId) {
-        this.UserId = UserId;
-    }
+    // public String getUserId() {
+    //     return userId;
+    // }
 
-    public String getUsername() {
-        return Username;
-    }
+    // public void setUserId(String userId) {
+    //     this.userId = userId;
+    // }
 
-    public void setUsername(String Username) {
-        this.Username = Username;
-    }
+    // public String getUsername() {
+    //     return username;
+    // }
 
-    public String getEmail() {
-        return Email;
-    }
+    // public void setUsername(String username) {
+    //     this.username = username;
+    // }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
-    }
+    // public String getEmail() {
+    //     return email;
+    // }
 
-    public String getPhoto() {
-        return Photo;
-    }
+    // public void setEmail(String email) {
+    //     this.email = email;
+    // }
 
-    public void setPhoto(String Photo) {
-        this.Photo = Photo;
-    }
+    // public String getPhoto() {
+    //     return photo;
+    // }
 
+    // public void setPhoto(String photo) {
+    //     this.photo = photo;
+    // }
+
+    // public String getPassword() {
+    //     return password;
+    // }
+
+    // public void setPassword(String password) {
+    //     this.password = password;
+    // }
+
+    // public Integer getRoleId() {
+    //     return roleId;
+    // }
+
+    // public void setRoleId(Integer roleId) {
+    //     this.roleId = roleId;
+    // }
 }
