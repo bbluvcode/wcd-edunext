@@ -29,35 +29,35 @@
         <div class="container">
             <div class="register-container">
                 <h2 class="text-center mb-4">Đăng ký tài khoản</h2>
-                <form action="HomeServlet" method="post" enctype="multipart/form-data">
+                <form action="RegisterServlet" method="post" enctype="multipart/form-data">
                     <!-- Username -->
                     <div class="mb-3">
                         <label class="form-label">Tên người dùng</label>
-                        <input type="text" class="form-control" placeholder="Nhập tên của bạn" required>
+                        <input type="text" class="form-control" name="txtUsername" placeholder="Nhập tên của bạn" required>
                     </div>
 
                     <!-- Email -->
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" placeholder="Nhập email" required>
+                        <input type="email" class="form-control" name="txtEmail" placeholder="Nhập email" required>
                     </div>
 
                     <!-- Password -->
                     <div class="mb-3">
                         <label class="form-label">Mật khẩu</label>
-                        <input type="password" class="form-control" placeholder="Nhập mật khẩu" required>
+                        <input type="password" class="form-control" name="txtPassword" placeholder="Nhập mật khẩu" required>
                     </div>
 
                     <!-- Confirm Password -->
                     <div class="mb-3">
                         <label class="form-label">Xác nhận mật khẩu</label>
-                        <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" required>
+                        <input type="password" class="form-control" name="txtConfirmPassword" placeholder="Nhập lại mật khẩu" required>
                     </div>
 
                     <!-- Upload Photo -->
                     <div class="mb-3">
                         <label class="form-label">Ảnh đại diện</label>
-                        <input type="file" class="form-control">
+                        <input type="file" class="form-control" name="file">
                     </div>
 
                     <!-- Submit Button -->
@@ -65,7 +65,7 @@
 
                     <!-- Login Link -->
                     <div class="text-center mt-3">
-                        <p>Đã có tài khoản? <a href="#">Đăng nhập</a></p>
+                        <p>Đã có tài khoản? <a href="login.jsp">Đăng nhập</a></p>
                     </div>
                 </form>
             </div>

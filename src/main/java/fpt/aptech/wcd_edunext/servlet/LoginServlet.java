@@ -37,7 +37,10 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("userId", user.getUserId());
                 session.setAttribute("roleId", user.getRoleId());
 
-                response.sendRedirect("index.jsp");
+//                response.sendRedirect("index.jsp");
+                response.sendRedirect("RegisterServlet");
+
+//                request.getRequestDispatcher("register.jsp").forward(request, response);
             } else {
                 request.setAttribute("error", "Invalid credentials");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
