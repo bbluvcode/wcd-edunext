@@ -37,10 +37,15 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("userId", user.getUserId());
                 session.setAttribute("roleId", user.getRoleId());
 
-//                response.sendRedirect("index.jsp");
-                response.sendRedirect("RegisterServlet");
+                // Điều hướng dựa vào roleId
+                if (user.getRoleId() == 1) {
+                    response.sendRedirect("RegisterServlet");
+                } else if (user.getRoleId() == 2 || user.getRoleId() == 3) {
+                    response.sendRedirect("detail.jsp");
+                } else {
+                    response.sendRedirect("error.jsp"); // Nếu có roleId không hợp lệ
+                }
 
-//                request.getRequestDispatcher("register.jsp").forward(request, response);
             } else {
                 request.setAttribute("error", "Invalid credentials");
                 request.getRequestDispatcher("login.jsp").forward(request, response);

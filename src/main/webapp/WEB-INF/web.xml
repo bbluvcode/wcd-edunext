@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-    
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>fpt.aptech.wcd_edunext.servlet.LoginServlet</servlet-class>
@@ -8,6 +7,10 @@
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>fpt.aptech.wcd_edunext.servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>fpt.aptech.wcd_edunext.servlet.ChangePasswordServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -18,9 +21,13 @@
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>        
+        <welcome-file>login.jsp</welcome-file>
         <!--<welcome-file>RegisterServlet</welcome-file>-->
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/ChangePasswordServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
