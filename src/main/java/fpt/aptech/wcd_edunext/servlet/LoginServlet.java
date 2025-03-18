@@ -38,7 +38,10 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("roleId", user.getRoleId());
 
 //                response.sendRedirect("index.jsp");
-                response.sendRedirect("RegisterServlet");
+//                response.sendRedirect("RegisterServlet");
+                
+                //tra ve trang book
+                response.sendRedirect("BookServlet");
 
 //                request.getRequestDispatcher("register.jsp").forward(request, response);
             } else {
