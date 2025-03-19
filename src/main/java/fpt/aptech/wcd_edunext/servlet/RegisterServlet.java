@@ -52,7 +52,6 @@ public class RegisterServlet extends HttpServlet {
                             if (row > 0) {
                                 out.println("<h3>Completed...</h3>");
                                 request.getRequestDispatcher("index.jsp").include(request, response);
-
                             }
                             //Luu file vao thu muc
                             try {

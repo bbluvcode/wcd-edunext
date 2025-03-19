@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
   <!-- Define Persistence Unit -->
-  <persistence-unit name="my_persistence_unit">
+  <persistence-unit name="mini" transaction-type="RESOURCE_LOCAL">
     <class>fpt.aptech.wcd_edunext.dao.UserDAO</class>
+    <class>models.Publisher</class>
+    <class>models.User</class>
+    <class>models.Review</class>
+    <class>models.Role</class>
+    <class>models.Book</class>
+    <properties>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=WCDEdunextDB;encrypt=true;trustServerCertificate=true;"/>
+      <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="jakarta.persistence.jdbc.user" value="sa"/>
+      <property name="jakarta.persistence.jdbc.password" value="123"/>
+    </properties>
   </persistence-unit>
 </persistence>

@@ -45,7 +45,6 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     response.sendRedirect("error.jsp"); // Nếu có roleId không hợp lệ
                 }
-
             } else {
                 request.setAttribute("error", "Invalid credentials");
                 request.getRequestDispatcher("login.jsp").forward(request, response);

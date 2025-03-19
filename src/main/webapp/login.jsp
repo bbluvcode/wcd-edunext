@@ -37,7 +37,6 @@
                     <div class="mb-3 text-left">
                         <a href="register.jsp" class="text-primary text-decoration-underline d-inline-block mt-2">Register new user</a>
                     </div>
-
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </div>
