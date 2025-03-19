@@ -49,46 +49,53 @@ public class RegisterServlet extends HttpServlet {
                         Part p = request.getPart("file");
 
                         Map<String, String> errors = new HashMap<>();
-                        if (userName.isEmpty()) {
-                            errors.put("username", "Username is required");
-                        } else {
-                            if (userName.length() < 6) {
-                                errors.put("username", "Username must be greater than 6 characters");
-                            }
-                        }
-                        if (email.isEmpty()) {
-                            errors.put("email", "Email is required");
-                        } else {
-                            if (!email.matches("\\w+@\\w+\\.\\w+")) {
-                                errors.put("email", "Email is invalid");
-                            }
-                        }
-                        if (password.isEmpty()) {
-                            errors.put("password", "Password is required");
-                        } else {
-                            if (password.length() < 6) {
-                                errors.put("password", "Password must be greater than 6 characters");
-                            }
-                        }
-                        if (!errors.isEmpty()) {
-                            request.setAttribute("errors", errors);
-                            request.setAttribute("username", userName);
-                            request.setAttribute("email", email);
-                            request.setAttribute("password", password);
-                            request.getRequestDispatcher("register.jsp").forward(request, response);
-                        }
                         if (p != null) {
+                            if (userName.isEmpty()) {
+                                errors.put("username", "Username is required");
+                            } else {
+                                if (userName.length() < 6) {
+                                    errors.put("username", "Username must be greater than 6 characters");
+                                }
+                            }
+                            if (email.isEmpty()) {
+                                errors.put("email", "Email is required");
+                            } else {
+                                if (!email.matches("\\w+@\\w+\\.\\w+")) {
+                                    errors.put("email", "Email is invalid");
+                                }
+                            }
+                            if (password.isEmpty()) {
+                                errors.put("password", "Password is required");
+                            } else {
+                                if (password.length() < 6) {
+                                    errors.put("password", "Password must be greater than 6 characters");
+                                }
+                            }
+                            if (!errors.isEmpty()) {
+                                request.setAttribute("errors", errors);
+                                request.setAttribute("username", userName);
+                                request.setAttribute("email", email);
+                                request.setAttribute("password", password);
+                                System.out.println("Validation errors: " + errors); // Debug log
+                                request.getRequestDispatcher("register.jsp").forward(request, response);
+                                return; // Prevent further execution if there are validation errors
+                            }
+                            ///////////////////////////////////////////////
+                            ////////////////////////////////
                             String fileName = p.getSubmittedFileName();
                             UserDTO b = new UserDTO(email, userName, email, fileName, password, 2);
                             int row = dao.saveUser(b);
                             if (row > 0) {
-//                                out.println("<h3>Completed...</h3>");
+                                System.out.println("User registered successfully: " + userName); // Debug log
                                 List<UserDTO> ulist = dao.findAll();
                                 request.setAttribute("list", ulist);
                                 request.getRequestDispatcher("index.jsp").forward(request, response);
-
+                            } else {
+                                System.out.println("Failed to register user: " + userName); // Debug log
+                                request.setAttribute("error", "Failed to register user. Please try again.");
+                                request.getRequestDispatcher("register.jsp").forward(request, response);
                             }
-                            // Luu file vao thu muc
+                            // Save file to directory
                             try {
                                 String dir = "D:/APTECH/Term4/WCD/demo/wcd_edunext/src/main/webapp/images/" + fileName;
                                 FileOutputStream os = new FileOutputStream(dir);
@@ -96,9 +103,15 @@ public class RegisterServlet extends HttpServlet {
                                 byte[] data = new byte[is.available()];
                                 is.read(data);
                                 os.write(data);
+                                os.close();
+                                is.close();
+                                System.out.println("File uploaded successfully: " + fileName); // Debug log
+                                return;
                             } catch (Exception e) {
-                                System.out.println(e.getMessage());
+                                System.out.println("File upload error: " + e.getMessage()); // Debug log
                             }
+                        } else {
+                            errors.put("photo", "Photo is required");
                         }
                         break;
                     case "Edit":
