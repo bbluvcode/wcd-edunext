@@ -155,6 +155,24 @@ public class UserDAO {
             closeResources();
         }
     }
+    // 📌 Cập nhật mật khẩu người dùng
+
+    public boolean changePassword(String userId, String newPassword) {
+        String sql = "UPDATE Users SET password = ? WHERE userId = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, userId);
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            System.out.println("Lỗi khi cập nhật mật khẩu: " + ex.getMessage());
+        } finally {
+            closeResources();
+        }
+        return false;
+    }
 
     // 📌 Xóa người dùng
     public void deleteUser(String userId) {

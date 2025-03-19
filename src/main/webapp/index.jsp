@@ -15,7 +15,6 @@
     </head>
     <body>
         <div class="container">
-            <a href="register.jsp" class="btn btn-primary">Register new user</a>
             <h1>User List</h1>
             <table class="table table-hover">
                 <thead>

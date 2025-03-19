@@ -34,9 +34,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary w-50 me-2">Login</button>
-                        <a href="register.jsp" class="btn btn-warning w-50 text-decoration-none">Register</a>
+                    <div class="mb-3 text-left">
+                        <a href="register.jsp" class="text-primary text-decoration-underline d-inline-block mt-2">Register new user</a>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
                     </div>
                 </form>
             </div>

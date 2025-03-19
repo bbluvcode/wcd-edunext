@@ -11,6 +11,8 @@
     <servlet>
         <servlet-name>BookServlet</servlet-name>
         <servlet-class>fpt.aptech.wcd_edunext.servlet.BookServlet</servlet-class>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>fpt.aptech.wcd_edunext.servlet.ChangePasswordServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -27,6 +29,8 @@
     <servlet-mapping>
         <servlet-name>BookServlet</servlet-name>
         <url-pattern>/BookServlet</url-pattern>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/ChangePasswordServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

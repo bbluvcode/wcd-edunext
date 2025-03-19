@@ -25,12 +25,12 @@ public class LoginDAO {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     return new User(
-                            rs.getString("UserId"),
-                            rs.getString("Username"),
-                            rs.getString("Password"),
-                            rs.getString("Email"),
-                            rs.getString("Photo"),
-                            rs.getInt("RoleId")
+                            rs.getString("userId"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("email"),
+                            rs.getString("photo"),
+                            rs.getInt("roleId")
                     );
                 }
             }
