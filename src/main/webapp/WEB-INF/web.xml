@@ -9,10 +9,12 @@
         <servlet-class>fpt.aptech.wcd_edunext.servlet.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BookServlet</servlet-name>
-        <servlet-class>fpt.aptech.wcd_edunext.servlet.BookServlet</servlet-class>
         <servlet-name>ChangePasswordServlet</servlet-name>
         <servlet-class>fpt.aptech.wcd_edunext.servlet.ChangePasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookServlet</servlet-name>
+        <servlet-class>fpt.aptech.wcd_edunext.servlet.BookServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -22,16 +24,18 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>BookServlet</servlet-name>
+        <url-pattern>/BookServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/ChangePasswordServlet</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
         <!--<welcome-file>RegisterServlet</welcome-file>-->
     </welcome-file-list>
-    <servlet-mapping>
-        <servlet-name>BookServlet</servlet-name>
-        <url-pattern>/BookServlet</url-pattern>
-        <servlet-name>ChangePasswordServlet</servlet-name>
-        <url-pattern>/ChangePasswordServlet</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

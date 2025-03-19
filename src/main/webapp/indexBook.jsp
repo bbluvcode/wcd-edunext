@@ -29,6 +29,15 @@
                     <button type="submit" class="btn btn-primary" name="action" value="Search">Search</button>
                 </form>
             </div>
+            <div class="d-flex justify-content-center mb-3">
+                <form action="BookServlet" method="GET">
+                    <input type="hidden" name="txtSearch" value="${param.txtSearch}">
+                    <button type="submit" class="btn me-4 ${param.sort == 'default' || empty param.sort ? 'btn-primary' : 'btn-secondary'}" name="sort" value="default">Default</button>
+                    <button type="submit" class="btn me-4 ${param.sort == 'totalReviews' ? 'btn-primary' : 'btn-secondary'}" name="sort" value="totalReviews">Total Reviews</button>
+                    <button type="submit" class="btn me-4 ${param.sort == 'averageRating' ? 'btn-primary' : 'btn-secondary'}" name="sort" value="averageRating">Average Rating</button>
+                </form>
+            </div>
+
             <div class="row">
                 <c:forEach items="${blist}" var="bookList">
                     <c:set var="book" value="${bookList.book}" />
