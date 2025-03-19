@@ -38,18 +38,16 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("roleId", user.getRoleId());
 
                 response.sendRedirect("BookServlet");
-                // Điều hướng dựa vào roleId
-//                if (user.getRoleId() == 1) {
-//                    response.sendRedirect("RegisterServlet");
-//                } else if (user.getRoleId() == 2 || user.getRoleId() == 3) {
-//                    response.sendRedirect("detail.jsp");
-//                } else {
-//                    response.sendRedirect("error.jsp"); // Nếu có roleId không hợp lệ
-//                }
             } else {
                 request.setAttribute("error", "Invalid credentials");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
+        } else if ("logout".equals(action)) {  // Xử lý logout
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate(); // Hủy session
+            }
+            response.sendRedirect("login.jsp"); // Chuyển hướng về trang login
         } else {
             throw new AssertionError();
         }

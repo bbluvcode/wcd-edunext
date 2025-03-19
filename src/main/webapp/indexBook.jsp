@@ -22,7 +22,10 @@
           flex-direction: column;
           align-items: center;">
         <div class="container mt-4">
-            <h2 class="text-center mb-4">Book List</h2>
+            <div class="d-flex justify-content-end mt-3 mb-3">
+                <a href="detail.jsp" class="btn btn-success me-3">Change Password</a>
+                <a href="LoginServlet?action=logout" class="btn btn-danger">Logout</a>
+            </div>
             <div class="d-flex justify-content-center mt-3 mb-3">
                 <form action="BookServlet" method="GET" class="d-flex w-50">
                     <input type="text" name="txtSearch" class="form-control me-2" placeholder="Search by name, author, or genre" value="${param.txtSearch}">
