@@ -86,7 +86,7 @@ public class BookServlet extends HttpServlet {
                         List<Review> rlist = dao.findReviewsByBookId(deId, rating, page, pageSize);
                         request.setAttribute("rlist", rlist);
                         if (rlist.isEmpty()) {
-                            request.setAttribute("emptyList", "No reviews");
+                            request.setAttribute("emptyList", "📢 No reviews yet! Be the first to review this book");
                         }
                         long totalReviews = dao.countReviewsByBookId(deId, rating);
                         int totalPages = (int) Math.ceil(totalReviews * 1.0 / pageSize);
@@ -103,16 +103,23 @@ public class BookServlet extends HttpServlet {
                     case "AddReview":
                         String userId = request.getParameter("userId");
                         int bookId = Integer.parseInt(request.getParameter("bookId"));
-                        int newRating = Integer.parseInt(request.getParameter("rating"));
+                        String ratingParam = request.getParameter("rating");
                         String comment = request.getParameter("comment");
-
+                        
+                        if (ratingParam == null || ratingParam.trim().isEmpty()) {
+                            request.setAttribute("error", "Please select rating before submit!");
+                            request.getRequestDispatcher("BookServlet?action=Detail&id=" + bookId).forward(request, response);
+                            break;
+                        }
+                        int newRating = Integer.parseInt(ratingParam);
+                        
                         Review newReview = new Review();
                         newReview.setUser(dao.findOneUser(userId));
                         newReview.setBook(dao.findOneBook(bookId));
                         newReview.setRating(newRating);
                         newReview.setReviewContent(comment);
                         dao.addReview(newReview);
-                        response.sendRedirect("BookServlet?action=Detail&id=" + bookId);
+                        response.sendRedirect("BookServlet?action=Detail&id=" + bookId+ "#filterReview");
                         break;
                     default:
                         throw new AssertionError();

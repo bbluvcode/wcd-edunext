@@ -15,10 +15,12 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/detailBook.css">
     </head>
-    <body>
-        <div class="container shadow-lg mt-4">
+    <body style="background: linear-gradient(to bottom right, #fceabb, #f8b500);
+          font-family: Arial, sans-serif;
+          min-height: 100vh;">
+        <div class="container shadow-lg mt-4"
+             >
             <h2 class="text-center mb-4">Book Detail</h2>
-
             <!-- Book -->
             <div class="card p-4">
                 <div class="row g-0">
@@ -35,6 +37,10 @@
                                     <tr>
                                         <th>Author</th>
                                         <td>${book.getAuthor()}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Publisher</th>
+                                        <td>${book.publisherId.getName()}</td>
                                     </tr>
                                     <tr>
                                         <th>Edition</th>
@@ -62,7 +68,8 @@
             <div class="card p-4 mt-5 w-75 mx-auto">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2 class="mb-0">Your Review</h2>
-                    <form action="BookServlet?action=AddReview" method="post" class="w-75">
+                    <form action="BookServlet?action=AddReview" method="post" class="w-75" id="addReviewForm">
+                        <p class="text-danger fs-5">${error}</p>
                         <input type="hidden" name="bookId" value="${book.getBookId()}">
                         <input type="hidden" name="userId" value="${userId}">
                         <div class="mb-3 d-flex">
@@ -267,7 +274,7 @@
                 <!-- Filter -->
                 <div class="d-flex align-items-center mb-3">
                     <h4>All Reviews</h4>                 
-                    <form method="GET" action="BookServlet" class="d-flex align-items-center gap-2 ms-4">
+                    <form method="GET" action="BookServlet" class="d-flex align-items-center gap-2 ms-4" id="filterReview">
                         <input type="hidden" name="action" value="Detail" />
                         <input type="hidden" name="id" value="${book.bookId}" />
                         <select name="stars" id="starFilter" class="form-select form-select-sm">
@@ -285,14 +292,18 @@
                 <p class="text-danger text-center fs-5">${emptyList}</p>
                 <c:forEach items="${rlist}" var="review">
                     <div class="card mb-3">
-                        <div class="card-body">
-                            <h6><strong>${review.getUser().getUsername()}</strong> - 
-                                <c:forEach var="i" begin="1" end="${review.rating}">
-                                    ⭐
-                                </c:forEach>
-                            </h6>
-                            <p>${review.getReviewContent()}</p>
-                            <small class="text-muted">${review.getReviewDate()}</small>
+                        <div class="card-body d-flex align-items-start">
+                            <img src="ImageBooks/${review.getUser().getPhoto()}" alt="User Avatar" 
+                                 class="rounded-circle me-3" width="50" height="50">
+                            <div>
+                                <h6><strong>${review.getUser().getUsername()}</strong> - 
+                                    <c:forEach var="i" begin="1" end="${review.rating}">
+                                        ⭐
+                                    </c:forEach>
+                                </h6>
+                                <p>${review.getReviewContent()}</p>
+                                <small class="text-muted">${review.getReviewDate()}</small>
+                            </div>
                         </div>
                     </div>
                 </c:forEach>

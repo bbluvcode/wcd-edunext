@@ -15,7 +15,12 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/indexBook.css">
     </head>
-    <body>
+    <body style="background: linear-gradient(to bottom right, #fceabb, #f8b500);
+          font-family: Arial, sans-serif;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;">
         <div class="container mt-4">
             <h2 class="text-center mb-4">Book List</h2>
             <div class="d-flex justify-content-center mt-3 mb-3">
@@ -40,10 +45,11 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h4 class="card-title text-center">${book.getTitle()}</h4>
-                                        <p class="card-text fs-7">
-                                            <strong>Author </strong> ${book.getAuthor()} <br>
-                                            <strong>Genre: </strong> ${book.getGenre()} <br>
+                                        <p class="card-text">
+                                            <strong>Author: </strong> ${book.getAuthor()} <br>
+                                            <strong>Publisher: </strong> ${book.publisherId.getName()} <br>                                           
                                             <strong>Edition: </strong> ${book.getEdition()} <br>
+                                            <strong>Genre: </strong> ${book.getGenre()} <br>
                                         </p>
                                     </div>
                                 </div>
