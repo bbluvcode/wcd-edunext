@@ -100,16 +100,16 @@ INSERT INTO Reviews (bookId, userId, rating, reviewContent, reviewDate) VALUES
 (1, 'U005', 5, 'Absolutely loved this book!', '2025-03-17'),
 (1, 'U002', 3, 'Some chapters were hard to follow.', '2025-03-18'),
 (1, 'U003', 4, 'Solid content, but not for beginners.', '2025-03-18'),
-(1, 'U004', 5, 'Changed my perspective on coding.', '2025-03-19'),
-(1, 'U005', 4, 'A great reference for professionals.', '2025-03-19'),
-(1, 'U002', 5, 'Engaging and insightful read.', '2025-03-20'),
-(1, 'U003', 4, 'Good book, but expected more depth.', '2025-03-20'),
-(1, 'U004', 3, 'Helpful, but some parts were repetitive.', '2025-03-21'),
-(1, 'U005', 5, 'This book is a game changer!', '2025-03-21'),
-(1, 'U002', 4, 'Enjoyed the practical examples.', '2025-03-22'),
-(1, 'U003', 5, 'Well-written and very insightful.', '2025-03-22'),
-(1, 'U004', 4, 'A great addition to my library.', '2025-03-23'),
-(1, 'U005', 5, 'Highly useful for software engineers.', '2025-03-23');
+(1, 'U004', 5, 'Changed my perspective on coding.', '2025-02-19'),
+(1, 'U005', 4, 'A great reference for professionals.', '2025-02-19'),
+(1, 'U002', 5, 'Engaging and insightful read.', '2025-02-20'),
+(1, 'U003', 4, 'Good book, but expected more depth.', '2025-02-20'),
+(1, 'U004', 3, 'Helpful, but some parts were repetitive.', '2025-02-21'),
+(1, 'U005', 5, 'This book is a game changer!', '2025-02-21'),
+(1, 'U002', 4, 'Enjoyed the practical examples.', '2025-02-22'),
+(1, 'U003', 5, 'Well-written and very insightful.', '2025-02-22'),
+(1, 'U004', 4, 'A great addition to my library.', '2025-02-23'),
+(1, 'U005', 5, 'Highly useful for software engineers.', '2025-02-23');
 
 
 ----------------------------
@@ -135,15 +135,15 @@ INSERT INTO Books (title, author, edition, publisherId, genre, photo) VALUES
 ('Eloquent JavaScript', 'Marijn Haverbeke', 3, 2, 'Programming', 'bookd9.jpg'),
 ('The Art of Computer Programming', 'Donald Knuth', 3, 1, 'Computer Science', 'bookd10.jpg'),
 ('Head First Design Patterns', 'Eric Freeman & Elisabeth Robson', 2, 2, 'Software Engineering', 'bookd.jpg'),
-('JavaScript: The Good Parts', 'Douglas Crockford', 1, 2, 'Programming', 'bookd.jpg'),
-('The Phoenix Project', 'Gene Kim, Kevin Behr, George Spafford', 1, 3, 'IT Management', 'bookd.jpg'),
-('The DevOps Handbook', 'Gene Kim, Jez Humble, Patrick Debois, John Willis', 1, 3, 'DevOps', 'bookd.jpg'),
-('Continuous Delivery', 'Jez Humble & David Farley', 1, 2, 'Software Engineering', 'bookd.jpg'),
-('The Algorithm Design Manual', 'Steven Skiena', 2, 1, 'Computer Science', 'bookd.jpg'),
-('Grokking Algorithms', 'Aditya Bhargava', 1, 2, 'Computer Science', 'bookd.jpg'),
+('JavaScript: The Good Parts', 'Douglas Crockford', 1, 2, 'Programming', 'bookd1.jpg'),
+('The Phoenix Project', 'Gene Kim, Kevin Behr, George Spafford', 1, 3, 'IT Management', 'bookd2.jpg'),
+('The DevOps Handbook', 'Gene Kim, Jez Humble, Patrick Debois, John Willis', 1, 3, 'DevOps', 'bookd3.jpg'),
+('Continuous Delivery', 'Jez Humble & David Farley', 1, 2, 'Software Engineering', 'bookd4.jpg'),
+('The Algorithm Design Manual', 'Steven Skiena', 2, 1, 'Computer Science', 'bookd5.jpg'),
+('Grokking Algorithms', 'Aditya Bhargava', 1, 2, 'Computer Science', 'bookd6.jpg'),
 ('The Lean Startup', 'Eric Ries', 1, 3, 'Business', 'bookd.jpg'),
-('Cracking the Coding Interview', 'Gayle Laakmann McDowell', 6, 2, 'Programming', 'bookd.jpg'),
-('Designing Data-Intensive Applications', 'Martin Kleppmann', 1, 1, 'Data Science', 'bookd.jpg');
+('Cracking the Coding Interview', 'Gayle Laakmann McDowell', 6, 2, 'Programming', 'bookd7.jpg'),
+('Designing Data-Intensive Applications', 'Martin Kleppmann', 1, 1, 'Data Science', 'bookd8.jpg');
 
 ALTER TABLE Books 
 ADD description NVARCHAR(MAX);
@@ -220,3 +220,6 @@ INSERT INTO Reviews (bookId, userId, rating, reviewContent) VALUES
 (3, 'U003', 4, 'Good insights, but some sections were repetitive.'),
 (3, 'U004', 3, 'Decent book, but not what I expected.'),
 (3, 'U005', 5, 'A fantastic book that kept me hooked till the end.');
+
+INSERT INTO Users (userId, username, email, photo, roleId) VALUES
+('U404', 'Anonymous', 'lefthend@lefthend.com', 'default.jpg', 2);
