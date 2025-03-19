@@ -26,9 +26,16 @@ public class BookServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String action = request.getParameter("action");
+            String sort = request.getParameter("sort");
             if (null == action) {
+                List<Book> books;
 
-                List<Book> books = dao.findAllBooks();
+                if (sort != null) {
+                    books = dao.findAllBooksSorted(sort);
+                } else {
+                    books = dao.findAllBooks(); 
+                }
+
                 List<Map<String, Object>> bookList = new ArrayList<>();
 
                 for (Book book : books) {
@@ -41,6 +48,7 @@ public class BookServlet extends HttpServlet {
                     bookList.add(bookData);
                 }
                 request.setAttribute("blist", bookList);
+                request.setAttribute("sort", sort);
                 request.getRequestDispatcher("indexBook.jsp").forward(request, response);
             } else {
                 switch (action) {
@@ -105,21 +113,21 @@ public class BookServlet extends HttpServlet {
                         int bookId = Integer.parseInt(request.getParameter("bookId"));
                         String ratingParam = request.getParameter("rating");
                         String comment = request.getParameter("comment");
-                        
+
                         if (ratingParam == null || ratingParam.trim().isEmpty()) {
                             request.setAttribute("error", "Please select rating before submit!");
                             request.getRequestDispatcher("BookServlet?action=Detail&id=" + bookId).forward(request, response);
                             break;
                         }
                         int newRating = Integer.parseInt(ratingParam);
-                        
+
                         Review newReview = new Review();
                         newReview.setUser(dao.findOneUser(userId));
                         newReview.setBook(dao.findOneBook(bookId));
                         newReview.setRating(newRating);
                         newReview.setReviewContent(comment);
                         dao.addReview(newReview);
-                        response.sendRedirect("BookServlet?action=Detail&id=" + bookId+ "#filterReview");
+                        response.sendRedirect("BookServlet?action=Detail&id=" + bookId + "#filterReview");
                         break;
                     default:
                         throw new AssertionError();

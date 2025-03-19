@@ -32,6 +32,23 @@ public class ReviewDAO {
                 .getResultList();
     }
 
+    public List<Book> findAllBooksSorted(String sort) {
+        String queryName;
+        switch (sort) {
+            case "totalReviews":
+                queryName = "Book.sortByTotalReviews";
+                break;
+            case "averageRating":
+                queryName = "Book.sortByAverageRating";
+                break;
+            default:
+                queryName = "Book.findAll"; 
+        }
+
+        TypedQuery<Book> query = em.createNamedQuery(queryName, Book.class);
+        return query.getResultList();
+    }
+
     public User findOneUser(String id) {
         return em.createNamedQuery("User.findOne", User.class)
                 .setParameter("id", id)

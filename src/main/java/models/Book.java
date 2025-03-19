@@ -40,7 +40,13 @@ import java.util.List;
             + "LOWER(b.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR "
             + "LOWER(b.author) LIKE LOWER(CONCAT('%', :keyword, '%')) OR "
             + "LOWER(b.genre) LIKE LOWER(CONCAT('%', :keyword, '%'))"
-    )
+    ),
+    @NamedQuery(name = "Book.sortByTotalReviews",
+            query = "SELECT b FROM Book b "
+            + "ORDER BY (SELECT COUNT(r) FROM Review r WHERE r.book = b) DESC"),
+    @NamedQuery(name = "Book.sortByAverageRating",
+            query = "SELECT b FROM Book b "
+            + "ORDER BY (SELECT COALESCE(AVG(r.rating), 0) FROM Review r WHERE r.book = b) DESC")
 })
 public class Book implements Serializable {
 
