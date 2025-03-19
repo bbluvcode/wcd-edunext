@@ -8,11 +8,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDAO {
-
+    
     private Connection conn;
     private PreparedStatement pstmt;
     private ResultSet rs;
-
+    
     public UserDAO() {
         conn = ConnectDB.setConnect();
     }
@@ -42,42 +42,63 @@ public class UserDAO {
 
     public List<UserDTO> findAll() {
         List<UserDTO> list = new ArrayList<>();
-
         try {
             String sql = "SELECT * FROM Users";
             pstmt = conn.prepareCall(sql);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                UserDTO b = new UserDTO();
-                b.setUserId(rs.getString(1));
-                b.setUsername(rs.getString(2));
-                b.setEmail(rs.getString(3));
-                b.setPhoto(rs.getString(4));
-                b.setRoleId(rs.getInt(5));
-                b.setPassword(rs.getString(6));
-
-                list.add(b);
+                UserDTO user = new UserDTO();
+                user.setUserId(rs.getString("userId"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoto(rs.getString("photo"));
+                user.setRoleId(rs.getInt("roleId"));
+                user.setPassword("123");
+                list.add(user);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
+//    public List<UserDTO> findAll() {
+//        List<UserDTO> list = new ArrayList<>();
+//
+//        try {
+//            String sql = "SELECT * FROM Users";
+//            pstmt = conn.prepareCall(sql);
+//            rs = pstmt.executeQuery();
+//            while (rs.next()) {
+//                UserDTO b = new UserDTO();
+//                b.setUserId(rs.getString(1));
+//                b.setUsername(rs.getString(2));
+//                b.setEmail(rs.getString(3));
+//                b.setPhoto(rs.getString(4));
+//                b.setRoleId(rs.getInt(5));
+//                b.setPassword(rs.getString(6));
+//
+//                list.add(b);
+//            }
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return list;
+//    }
 
     public int saveUser(UserDTO newUser) {
         int row = 0;
         try {
             String sql = "INSERT INTO Users VALUES (?,?,?,?,?,?)";
-
+            
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, newUser.getUserId());
             pstmt.setString(2, newUser.getUsername());
             pstmt.setString(3, newUser.getEmail());
             pstmt.setString(4, newUser.getPhoto());
-            pstmt.setInt(5,(newUser.getRoleId() != null) ? newUser.getRoleId() : 2);
+            pstmt.setInt(5, (newUser.getRoleId() != null) ? newUser.getRoleId() : 2);
             pstmt.setString(6, newUser.getPassword());
-
+            
             row = pstmt.executeUpdate();
             return row;
         } catch (SQLException ex) {
@@ -90,7 +111,7 @@ public class UserDAO {
     public List<UserDTO> getAllUsers() {
         List<UserDTO> users = new ArrayList<>();
         String sql = "SELECT * FROM Users";
-
+        
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
@@ -115,7 +136,7 @@ public class UserDAO {
     public UserDTO getUserById(String userId) {
         String sql = "SELECT * FROM Users WHERE userId = ?";
         UserDTO user = null;
-
+        
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userId);
@@ -163,7 +184,7 @@ public class UserDAO {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, newPassword);
             pstmt.setString(2, userId);
-
+            
             int rowsUpdated = pstmt.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException ex) {

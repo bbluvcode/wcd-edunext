@@ -13,7 +13,9 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.*;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -38,22 +40,55 @@ public class RegisterServlet extends HttpServlet {
                 request.setAttribute("list", bList);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
-                switch (action) {//                   
+                switch (action) {//
                     case "Register":
                         String userName = request.getParameter("txtUsername");
                         String email = request.getParameter("txtEmail");
                         String photo = request.getParameter("file");
                         String password = request.getParameter("txtPassword");
                         Part p = request.getPart("file");
+
+                        Map<String, String> errors = new HashMap<>();
+                        if (userName.isEmpty()) {
+                            errors.put("username", "Username is required");
+                        } else {
+                            if (userName.length() < 6) {
+                                errors.put("username", "Username must be greater than 6 characters");
+                            }
+                        }
+                        if (email.isEmpty()) {
+                            errors.put("email", "Email is required");
+                        } else {
+                            if (!email.matches("\\w+@\\w+\\.\\w+")) {
+                                errors.put("email", "Email is invalid");
+                            }
+                        }
+                        if (password.isEmpty()) {
+                            errors.put("password", "Password is required");
+                        } else {
+                            if (password.length() < 6) {
+                                errors.put("password", "Password must be greater than 6 characters");
+                            }
+                        }
+                        if (!errors.isEmpty()) {
+                            request.setAttribute("errors", errors);
+                            request.setAttribute("username", userName);
+                            request.setAttribute("email", email);
+                            request.setAttribute("password", password);
+                            request.getRequestDispatcher("register.jsp").forward(request, response);
+                        }
                         if (p != null) {
                             String fileName = p.getSubmittedFileName();
                             UserDTO b = new UserDTO(email, userName, email, fileName, password, 2);
                             int row = dao.saveUser(b);
                             if (row > 0) {
-                                out.println("<h3>Completed...</h3>");
-                                request.getRequestDispatcher("index.jsp").include(request, response);
+//                                out.println("<h3>Completed...</h3>");
+                                List<UserDTO> ulist = dao.findAll();
+                                request.setAttribute("list", ulist);
+                                request.getRequestDispatcher("index.jsp").forward(request, response);
+
                             }
-                            //Luu file vao thu muc
+                            // Luu file vao thu muc
                             try {
                                 String dir = "D:/APTECH/Term4/WCD/demo/wcd_edunext/src/main/webapp/images/" + fileName;
                                 FileOutputStream os = new FileOutputStream(dir);
@@ -77,7 +112,8 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+    // + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
